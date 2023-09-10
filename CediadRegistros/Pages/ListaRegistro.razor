@@ -1,0 +1,50 @@
+﻿@page "/lista-registro"
+@using CediadDataBase
+@inject RegistrosService service
+
+<h3>Lista de Registros</h3>
+
+@if (Registros != null && Registros.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha de Pago</th>
+                <th>Monto</th>
+                <th>Descripción</th>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Método de Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var registro in Registros)
+            {
+                <tr>
+                    <td>@registro.Id</td>
+                    <td>@registro.FechaDePago.ToShortDateString()</td>
+                    <td>@registro.Monto</td>
+                    <td>@registro.Descripcion</td>
+                    <td>@registro.Titulo</td>
+                    <td>@registro.Categoria.ToString()</td>
+                    <td>@registro.MetodoDePago.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No se encontraron registros.</p>
+}
+
+@code {
+    private List<Registro> Registros { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtén la lista de registros desde el servicio
+        Registros = await service.GetRegistros();
+    }
+}
