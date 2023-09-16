@@ -7,7 +7,7 @@ public class Registro
 {
     [Key]
     public int Id { get; set; }
-    public DateTime FechaDePago {  get; set; }
+    public DateTime FechaDePago {  get; set; } = DateTime.Now;
     public decimal Monto { get; set; }
     public string Descripcion { get; set; } = string.Empty;
     public string Titulo { get; set; } = string.Empty;

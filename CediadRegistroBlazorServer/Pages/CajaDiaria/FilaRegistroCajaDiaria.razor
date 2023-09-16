@@ -1,0 +1,54 @@
+﻿@using CediadDataBase;
+
+<tr>
+    <td>
+        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
+            <InputNumber @bind-Value="@registro.Monto"></InputNumber>
+        </EditForm>
+    </td>
+    <td>
+        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
+            <InputText @bind-Value="@registro.Descripcion"></InputText>
+        </EditForm>
+    </td>
+    <td>
+        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
+            <InputText @bind-Value="@registro.Titulo"></InputText>
+        </EditForm>
+    </td>
+    <td>
+        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
+            <select @bind="@registro.Categoria" class="form-control">
+                @foreach (Categoria categoria in Enum.GetValues(typeof(Categoria)))
+                {
+                    <option value="@categoria">@categoria</option>
+                }
+            </select>
+        </EditForm>
+    </td>
+    <td>
+        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
+            <select @bind="@registro.MetodoDePago" class="form-control">
+                @foreach (MetodoDePago categoria in Enum.GetValues(typeof(MetodoDePago)))
+                {
+                    <option value="@categoria">@categoria</option>
+                }
+            </select>
+        </EditForm>
+    </td>
+    <td>
+        <button type="submit" @onclick="SubmitForm">Guardar</button>
+    </td>
+</tr>
+
+@code {
+    [Parameter]
+    public Registro registro { get; set; }
+    [Parameter]
+    public EventCallback<Registro> OnSubmit { get; set; }
+
+    private async Task SubmitForm()
+    {
+        await OnSubmit.InvokeAsync(registro);
+    }
+}

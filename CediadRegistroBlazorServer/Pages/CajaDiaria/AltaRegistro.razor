@@ -6,28 +6,20 @@
     <div class="d-flex flex-row flex-wrap">
         <DataAnnotationsValidator />
         <ValidationSummary />
-@*        <div class="form-group col-md-2">
-            <label for="FechaDePago">Fecha de Pago:</label>
-            <InputDate @bind-Value="Registro.FechaDePago" class="form-control" />
-        </div>*@
 
         <div class="form-group col-md-2">
-            <label for="Monto">Monto:</label>
             <InputNumber @bind-Value="Registro.Monto" class="form-control" />
         </div>
 
         <div class="form-group col-md-2">
-            <label for="Descripcion">Descripción:</label>
             <InputText @bind-Value="Registro.Descripcion" class="form-control" />
         </div>
 
         <div class="form-group col-md-2">
-            <label for="Titulo">Título:</label>
             <InputText @bind-Value="Registro.Titulo" class="form-control" />
         </div>
 
         <div class="form-group col-md-2">
-            <label for="Categoria">Categoría:</label>
             <select @bind="Registro.Categoria" class="form-control">
                 @foreach (Categoria categoria in Enum.GetValues(typeof(Categoria)))
                 {
@@ -37,7 +29,6 @@
         </div>
 
         <div class="form-group col-md-2">
-            <label for="MetodoDePago">Método de Pago:</label>
             <select @bind="Registro.MetodoDePago" class="form-control">
                 @foreach (MetodoDePago metodo in Enum.GetValues(typeof(MetodoDePago)))
                 {

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CediadDataBase", "CediadDataBase\CediadDataBase.csproj", "{17C19008-7723-48F5-9317-6369D59FD7A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CediadDataBase", "CediadDataBase\CediadDataBase.csproj", "{17C19008-7723-48F5-9317-6369D59FD7A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CediadApi", "CediadApi\CediadApi.csproj", "{11513EBF-2180-4414-B8C7-C80929A51887}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CediadApi", "CediadApi\CediadApi.csproj", "{11513EBF-2180-4414-B8C7-C80929A51887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CediadRegistroBlazorServer", "CediadRegistroBlazorServer\CediadRegistroBlazorServer.csproj", "{78BA7F08-AADE-422C-98F7-3333245F5482}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CediadRegistroBlazorServer", "CediadRegistroBlazorServer\CediadRegistroBlazorServer.csproj", "{78BA7F08-AADE-422C-98F7-3333245F5482}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,14 +1,16 @@
 using Microsoft.AspNetCore.Components;
 using CediadDataBase;
 
-namespace CediadRegistroBlazorServer.Pages;
+namespace CediadRegistroBlazorServer.Pages.CajaDiaria;
 
 public partial class AltaRegistro
 {
-    private Registro Registro { get; set; } = new Registro();
+    [Parameter]
+    public Registro Registro { get; set; }
     protected override void OnInitialized()
     {
         // Inicializa la fecha de pago con la fecha de hoy
+        Registro ??= new Registro();
         Registro.FechaDePago = DateTime.Today;
     }
 
@@ -22,7 +24,7 @@ public partial class AltaRegistro
         }
         else
         {
-        // Maneja el caso de error, muestra un mensaje de error, etc.
+            // Maneja el caso de error, muestra un mensaje de error, etc.
         }
     }
 }

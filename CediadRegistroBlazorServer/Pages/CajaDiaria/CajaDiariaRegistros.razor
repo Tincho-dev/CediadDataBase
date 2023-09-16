@@ -1,0 +1,54 @@
+﻿@using CediadDataBase;
+@inject RegistrosService service
+
+<h3>Caja Diaria Registros</h3>
+@if (Registros != null && Registros.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Monto</th>
+                <th>Descripción</th>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Método de Pago</th>
+                <th>Guardar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var registro in Registros)
+            {
+                <FilaRegistroCajaDiaria registro="registro" OnSubmit="HandleValidSubmit"/>
+            }
+        </tbody>
+    </table>
+
+}
+
+@code {
+    private List<Registro>? Registros { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtén la lista de registros desde el servicio
+        Registros = await service.GetRegistros();
+        Registros ??= new List<Registro>();
+        Registros.Insert(0, new Registro());
+    }
+
+    private async Task HandleValidSubmit(Registro registro)
+    {
+        // Lógica para guardar el registro en la base de datos usando el servicio
+        bool success = await service.AddRegistro(registro);
+        if (success)
+        {
+            //NavigationManager.NavigateTo("/lista-registro");
+            Registros.Insert(0, new Registro());
+            StateHasChanged();
+        }
+        else
+        {
+            // Maneja el caso de error, muestra un mensaje de error, etc.
+        }
+    }
+}
