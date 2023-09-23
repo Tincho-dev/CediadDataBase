@@ -1,6 +1,8 @@
 ﻿@page "/lista-registro"
 @using CediadDataBase
 @inject RegistrosService service
+@inject NavigationManager NavigationManager
+
 
 <h3>Lista de Registros</h3>
 
@@ -23,7 +25,11 @@
             {
                 <tr>
                     <td>@registro.Id</td>
-                    <td>@registro.FechaDePago.ToShortDateString()</td>
+                    <td>
+                        <button @onclick="() => NavigateToCajaDiaria(registro.FechaDePago)">
+                            @registro.FechaDePago.ToShortDateString()
+                        </button>
+                    </td>
                     <td>@registro.Monto</td>
                     <td>@registro.Descripcion</td>
                     <td>@registro.Titulo</td>
@@ -46,5 +52,10 @@ else
     {
         // Obtén la lista de registros desde el servicio
         Registros = await service.GetRegistros();
+    }
+
+    private void NavigateToCajaDiaria(DateTime fecha)
+    {
+            // Navega a la página CajaDiariaRegistros y pasa la fecha seleccionada
     }
 }
