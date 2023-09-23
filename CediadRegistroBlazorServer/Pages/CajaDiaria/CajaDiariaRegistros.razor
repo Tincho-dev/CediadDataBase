@@ -2,6 +2,10 @@
 @inject RegistrosService service
 
 <h3>Caja Diaria Registros</h3>
+<EditForm Model="SelectedDate" OnValidSubmit="Submit">
+    <InputDate @bind-Value="SelectedDate" @oninput="OnDateChanged" />
+</EditForm>
+
 @if (Registros != null && Registros.Count > 0)
 {
     <table class="table">
@@ -18,37 +22,55 @@
         <tbody>
             @foreach (var registro in Registros)
             {
-                <FilaRegistroCajaDiaria registro="registro" OnSubmit="HandleValidSubmit"/>
+                <FilaRegistroCajaDiaria registro="registro" OnSubmit="HandleValidSubmit" />
             }
         </tbody>
     </table>
-
 }
 
 @code {
-    private List<Registro>? Registros { get; set; }
+    private List<Registro> Registros { get; set; }
+    private DateTime SelectedDate { get; set; } = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
-        // Obtén la lista de registros desde el servicio
-        Registros = await service.GetRegistros();
-        Registros ??= new List<Registro>();
+        await LoadRecords();
+    }
+
+    private async Task LoadRecords()
+    {
+        Registros = await service.GetRegistros(SelectedDate) ?? new List<Registro>();
         Registros.Insert(0, new Registro());
+    }
+
+    private async Task Submit()
+    {
+        // Handle form submission here
+        // You can add additional logic if needed
+    }
+
+    // Handle date change
+    private async Task OnDateChanged(ChangeEventArgs e)
+    {
+        if (DateTime.TryParse(e.Value.ToString(), out DateTime newDate))
+        {
+            SelectedDate = newDate;
+            await LoadRecords();
+        }
+        Console.WriteLine("Date changed");
     }
 
     private async Task HandleValidSubmit(Registro registro)
     {
-        // Lógica para guardar el registro en la base de datos usando el servicio
+        // Logic to save the record to the database using the service
         bool success = await service.AddRegistro(registro);
         if (success)
         {
-            //NavigationManager.NavigateTo("/lista-registro");
-            Registros.Insert(0, new Registro());
-            StateHasChanged();
+            await LoadRecords(); // Reload records after adding a new one
         }
         else
         {
-            // Maneja el caso de error, muestra un mensaje de error, etc.
+            // Handle the error case, show an error message, etc.
         }
     }
 }

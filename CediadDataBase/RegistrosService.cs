@@ -10,6 +10,7 @@ public class RegistrosService
     {
         _context = context;
     }
+
     public async Task<bool> AddRegistro(Registro registro)
     {
         if (registro == null) { return false; }
@@ -33,6 +34,19 @@ public class RegistrosService
     {
         return _context.Registros.ToList();
     }
+
+    public async Task<List<Registro>> GetRegistros(DateTime date)
+    {
+        // Crear dos DateTime para representar el inicio y el final del día especificado
+        DateTime inicioDia = date.Date; // Hora 00:00:00
+        DateTime finDia = date.Date.AddDays(1).AddTicks(-1); // Hora 23:59:59
+
+        return _context.Registros
+            .Where(r => r.FechaDePago >= inicioDia && r.FechaDePago <= finDia)
+            .ToList();
+    }
+
+
 
     public Registro? GetRegistro()
     {

@@ -57,6 +57,7 @@ public enum Categoria
     CUOTA,
     DIFERENCIA_CAJA,
     EVENTO,
+    FIESTA,
     MANTENIMIENTO,
     SUELDO,
     SERVICIO,
