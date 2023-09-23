@@ -2,9 +2,7 @@
 @inject RegistrosService service
 
 <h3>Caja Diaria Registros</h3>
-<EditForm Model="SelectedDate" OnValidSubmit="Submit">
-    <InputDate @bind-Value="SelectedDate" @oninput="OnDateChanged" />
-</EditForm>
+<input type="date" @bind="SelectedDate" @oninput="OnDateChanged" />
 
 @if (Registros != null && Registros.Count > 0)
 {

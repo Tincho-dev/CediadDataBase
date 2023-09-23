@@ -1,43 +1,24 @@
 ﻿@using CediadDataBase;
 
 <tr>
+    <td><input type="number" @bind="registro.Monto" /></td>
+    <td><input type="text" @bind="registro.Descripcion" /></td>
+    <td><input type="text" @bind="registro.Titulo" /></td>
     <td>
-        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
-            <InputNumber @bind-Value="@registro.Monto"></InputNumber>
-        </EditForm>
+        <select @bind="registro.Categoria" class="form-control">
+            @foreach (Categoria categoria in Enum.GetValues(typeof(Categoria)))
+            {
+                <option value="@categoria">@categoria</option>
+            }
+        </select>
     </td>
     <td>
-        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
-            <InputText @bind-Value="@registro.Descripcion"></InputText>
-        </EditForm>
-    </td>
-    <td>
-        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
-            <InputText @bind-Value="@registro.Titulo"></InputText>
-        </EditForm>
-    </td>
-    <td>
-        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
-            <select @bind="@registro.Categoria" class="form-control">
-                @foreach (Categoria categoria in Enum.GetValues(typeof(Categoria)))
-                {
-                    <option value="@categoria">@categoria</option>
-                }
-            </select>
-        </EditForm>
-    </td>
-    <td>
-        <EditForm Model="@registro" OnValidSubmit="SubmitForm">
-            <select @bind="@registro.MetodoDePago" class="form-control">
-                @foreach (MetodoDePago categoria in Enum.GetValues(typeof(MetodoDePago)))
-                {
-                    <option value="@categoria">@categoria</option>
-                }
-            </select>
-        </EditForm>
-    </td>
-    <td>
-        <button type="submit" @onclick="SubmitForm">Guardar</button>
+        <select @bind="registro.MetodoDePago" class="form-control">
+            @foreach (MetodoDePago metodo in Enum.GetValues(typeof(MetodoDePago)))
+            {
+                <option value="@metodo">@metodo</option>
+            }
+        </select>
     </td>
 </tr>
 
@@ -47,8 +28,11 @@
     [Parameter]
     public EventCallback<Registro> OnSubmit { get; set; }
 
-    private async Task SubmitForm()
+    private async Task SaveData()
     {
+        // Realiza aquí la lógica para guardar los datos en la base de datos
+        // Puedes usar el objeto "registro" para acceder a los valores de los campos
+
         await OnSubmit.InvokeAsync(registro);
     }
 }
