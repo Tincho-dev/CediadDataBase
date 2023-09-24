@@ -1,0 +1,61 @@
+﻿@using CediadDataBase;
+@inject RegistrosService service
+@page "/CajaGeneral"
+
+<h3>Caja General</h3>
+
+@if (Registros != null && Registros.Count > 0)
+{
+    <p>Total: @Registros.Sum(r => r.Monto)</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Detalle</th>
+                <th>Ingreso</th>
+                @* <th>Egreso</th> *@
+                <th>Guardar</th>
+                <th>Acumulado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var registro in Registros)
+            {
+                <tr>
+                    <FilaCajaGeneral Registro="registro" OnSubmit="HandleValidSubmit" />
+                    <td>@(registro.Monto + (Registros.IndexOf(registro) > 0 ? Registros[Registros.IndexOf(registro) - 1].Monto : 0))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Registro> Registros { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRecords();
+    }
+
+    private async Task LoadRecords()
+    {
+        Registros = service.GetRegistros(r => r.MetodoDePago == MetodoDePago.EFECTIVO && r.Destino == Destino.GENERAL) ?? new List<Registro>();
+        Registros.Insert(0, new Registro());
+    }
+
+    private async Task HandleValidSubmit(Registro registro)
+    {
+        // Logic to save the record to the database using the service
+        registro.Destino = Destino.GENERAL;
+        bool success = await service.AddRegistro(registro);
+        if (success)
+        {
+            await LoadRecords(); // Reload records after adding a new one
+        }
+        else
+        {
+            // Handle the error case, show an error message, etc.
+        }
+    }
+}

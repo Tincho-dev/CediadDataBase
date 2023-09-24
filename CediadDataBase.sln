@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CediadDataBase", "CediadDataBase\CediadDataBase.csproj", "{17C19008-7723-48F5-9317-6369D59FD7A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CediadApi", "CediadApi\CediadApi.csproj", "{11513EBF-2180-4414-B8C7-C80929A51887}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CediadRegistroBlazorServer", "CediadRegistroBlazorServer\CediadRegistroBlazorServer.csproj", "{78BA7F08-AADE-422C-98F7-3333245F5482}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{17C19008-7723-48F5-9317-6369D59FD7A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17C19008-7723-48F5-9317-6369D59FD7A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17C19008-7723-48F5-9317-6369D59FD7A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11513EBF-2180-4414-B8C7-C80929A51887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11513EBF-2180-4414-B8C7-C80929A51887}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11513EBF-2180-4414-B8C7-C80929A51887}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11513EBF-2180-4414-B8C7-C80929A51887}.Release|Any CPU.Build.0 = Release|Any CPU
 		{78BA7F08-AADE-422C-98F7-3333245F5482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78BA7F08-AADE-422C-98F7-3333245F5482}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78BA7F08-AADE-422C-98F7-3333245F5482}.Release|Any CPU.ActiveCfg = Release|Any CPU

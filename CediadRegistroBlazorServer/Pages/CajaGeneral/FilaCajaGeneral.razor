@@ -1,0 +1,19 @@
+﻿@using CediadDataBase;
+
+    <td><input type="date" @bind="Registro.FechaDePago" /></td>
+    <td><input type="text" @bind="Registro.Titulo" /></td>
+    <td><input type="number" @bind="Registro.Monto" /></td>
+    @* <td><input type="number" @bind="Registro.Monto" /></td> *@
+    <td><button @onclick="SaveData">Guardar</button></td>
+
+@code {
+    [Parameter]
+    public Registro Registro { get; set; }
+    [Parameter]
+    public EventCallback<Registro> OnSubmit { get; set; }
+
+    private async Task SaveData()
+    {
+        await OnSubmit.InvokeAsync(Registro);
+    }
+}

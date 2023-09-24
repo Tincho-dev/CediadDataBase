@@ -13,6 +13,7 @@ public class Registro
     public string Titulo { get; set; } = string.Empty;
     public Categoria Categoria { get; set; }
     public MetodoDePago MetodoDePago { get; set; }
+    public Destino Destino { get; set; }
 }
 
 public class Consumision : Registro
@@ -36,6 +37,13 @@ public class Persona
     [Key]
     public int Id { get; set; }
     public string Telefono { get; set; } = string.Empty;
+}
+
+public enum Destino
+{
+    DIARIA = 1,
+    GENERAL,
+    INVERSION
 }
 
 public enum MetodoDePago

@@ -10,6 +10,7 @@
 <button @onclick="()=>AddDays(1)">Siguiente</button>
 @if (Registros != null && Registros.Count > 0)
 {
+    <p>Total: @Registros.Sum(r => r.Monto)</p>
     <table class="table">
         <thead>
             <tr>
@@ -28,14 +29,13 @@
             }
         </tbody>
     </table>
-    <p>Total: @Registros.Sum(r => r.Monto)</p>
 }
 
 @code {
     [Parameter]
-    public string SelectedDateParameter { get; set; }
+    public string? SelectedDateParameter { get; set; }
     public DateTime SelectedDate { get; set; } = DateTime.Today;
-    private List<Registro> Registros { get; set; }
+    private List<Registro> Registros { get; set; } = new List<Registro>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -52,7 +52,7 @@
 
     private async Task LoadRecords()
     {
-        Registros = await service.GetRegistros(SelectedDate) ?? new List<Registro>();
+        Registros = service.GetRegistros(SelectedDate) ?? new List<Registro>();
         Registros.Insert(0, new Registro());
     }
 
@@ -73,7 +73,8 @@
     }
     private async Task HandleValidSubmit(Registro registro)
     {
-        // Logic to save the record to the database using the service
+        registro.Destino = Destino.DIARIA;
+        
         bool success = await service.AddRegistro(registro);
         if (success)
         {

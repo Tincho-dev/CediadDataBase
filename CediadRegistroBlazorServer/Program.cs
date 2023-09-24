@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<RegistroContext>(options =>
-    options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadDb;Integrated Security=True;TrustServerCertificate=true;"));
+    options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadRegistrosDb;Integrated Security=True;TrustServerCertificate=true;"));
 builder.Services.AddScoped<RegistrosService>();
 var app = builder.Build();
 

@@ -32,10 +32,17 @@ public class RegistrosService
 
     public async Task<List<Registro>> GetRegistros()
     {
-        return _context.Registros.ToList();
+        return await _context.Registros.ToListAsync();
     }
 
-    public async Task<List<Registro>> GetRegistros(DateTime date)
+    public List<Registro> GetRegistros(Func<Registro, bool> predicate)
+    {
+        var result = _context.Registros.Where(predicate);
+        return result.ToList();
+    }
+
+
+    public List<Registro> GetRegistros(DateTime date)
     {
         // Crear dos DateTime para representar el inicio y el final del día especificado
         DateTime inicioDia = date.Date; // Hora 00:00:00
