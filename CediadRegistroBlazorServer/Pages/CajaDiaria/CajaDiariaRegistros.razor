@@ -1,7 +1,7 @@
 ﻿@using CediadDataBase;
 @inject RegistrosService service
-@page "/CajaDiariaRegistros"
 @page "/"
+@page "/CajaDiariaRegistros"
 @page "/CajaDiariaRegistros/{SelectedDateParameter}"
 
 <h3>Caja Diaria Registros</h3>
@@ -28,6 +28,7 @@
             }
         </tbody>
     </table>
+    <p>Total: @Registros.Sum(r => r.Monto)</p>
 }
 
 @code {
