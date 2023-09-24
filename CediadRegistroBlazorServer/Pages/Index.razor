@@ -1,7 +1,15 @@
-﻿@page "/"
+﻿@* @page "/"
+@inject NavigationManager NavigationManager
 
-<CajaDiariaRegistros/>
-
-@code{
-    
+@code
+{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            string formattedDate = DateTime.Today.AddDays(-7).ToString("yyyy-MM-dd");
+            NavigationManager.NavigateTo($"/CajaDiariaRegistros/{formattedDate}");
+        }
+    }
 }
+ *@

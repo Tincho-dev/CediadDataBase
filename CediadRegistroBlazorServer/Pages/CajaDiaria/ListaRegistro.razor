@@ -56,6 +56,8 @@ else
 
     private void NavigateToCajaDiaria(DateTime fecha)
     {
-            // Navega a la página CajaDiariaRegistros y pasa la fecha seleccionada
+        string formattedDate = fecha.ToString("yyyy-MM-dd");
+        NavigationManager.NavigateTo($"/CajaDiariaRegistros/{formattedDate}");
     }
+
 }

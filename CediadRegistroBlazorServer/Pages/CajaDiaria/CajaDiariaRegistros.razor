@@ -1,6 +1,8 @@
 ﻿@using CediadDataBase;
 @inject RegistrosService service
 @page "/CajaDiariaRegistros"
+@page "/"
+@page "/CajaDiariaRegistros/{SelectedDateParameter}"
 
 <h3>Caja Diaria Registros</h3>
 <button @onclick="()=>AddDays(-1)">Anterior</button>
@@ -16,23 +18,34 @@
                 <th>Título</th>
                 <th>Categoría</th>
                 <th>Método de Pago</th>
+                <th>Guardar</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var registro in Registros)
             {
-                <FilaRegistroCajaDiaria registro="registro" OnSubmit="HandleValidSubmit" />
+                <FilaRegistroCajaDiaria Registro="registro" OnSubmit="HandleValidSubmit" />
             }
         </tbody>
     </table>
 }
 
 @code {
+    [Parameter]
+    public string SelectedDateParameter { get; set; }
+    public DateTime SelectedDate { get; set; } = DateTime.Today;
     private List<Registro> Registros { get; set; }
-    private DateTime SelectedDate { get; set; } = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
+        if (!string.IsNullOrEmpty(SelectedDateParameter))
+        {
+            if (DateTime.TryParse(SelectedDateParameter, out DateTime date))
+            {
+                SelectedDate = date;
+            }
+        }
+
         await LoadRecords();
     }
 

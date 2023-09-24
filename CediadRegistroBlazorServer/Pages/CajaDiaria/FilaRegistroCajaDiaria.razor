@@ -1,11 +1,11 @@
 ﻿@using CediadDataBase;
 
 <tr>
-    <td><input type="number" @bind="registro.Monto" /></td>
-    <td><input type="text" @bind="registro.Descripcion" /></td>
-    <td><input type="text" @bind="registro.Titulo" /></td>
+    <td><input type="number" @bind="Registro.Monto" /></td>
+    <td><input type="text" @bind="Registro.Descripcion" /></td>
+    <td><input type="text" @bind="Registro.Titulo" /></td>
     <td>
-        <select @bind="registro.Categoria" class="form-control">
+        <select @bind="Registro.Categoria" class="form-control">
             @foreach (Categoria categoria in Enum.GetValues(typeof(Categoria)))
             {
                 <option value="@categoria">@categoria</option>
@@ -13,26 +13,24 @@
         </select>
     </td>
     <td>
-        <select @bind="registro.MetodoDePago" class="form-control">
+        <select @bind="Registro.MetodoDePago" class="form-control">
             @foreach (MetodoDePago metodo in Enum.GetValues(typeof(MetodoDePago)))
             {
                 <option value="@metodo">@metodo</option>
             }
         </select>
     </td>
+    <td><button @onclick="SaveData">Guardar</button></td>
 </tr>
 
 @code {
     [Parameter]
-    public Registro registro { get; set; }
+    public Registro Registro { get; set; }
     [Parameter]
     public EventCallback<Registro> OnSubmit { get; set; }
 
     private async Task SaveData()
     {
-        // Realiza aquí la lógica para guardar los datos en la base de datos
-        // Puedes usar el objeto "registro" para acceder a los valores de los campos
-
-        await OnSubmit.InvokeAsync(registro);
+        await OnSubmit.InvokeAsync(Registro);
     }
 }
