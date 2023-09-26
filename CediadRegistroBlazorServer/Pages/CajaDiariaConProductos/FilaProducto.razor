@@ -1,0 +1,29 @@
+﻿@using CediadDataBase;
+@if (Producto != null)
+{
+    <td><input type="text" @bind="Producto.Nombre" /></td>
+    <td><input type="text" @bind="Producto.Descripcion" /></td>
+    <td><input type="number" @bind="Producto.Precio" /></td>
+    <td><input type="number" @bind="Producto.PrecioDeCompra" /></td>
+    <td>
+        <select @bind="Producto.Categoria">
+            @foreach (Categoria categoria in Enum.GetValues(typeof(Categoria)))
+            {
+                <option value="@categoria">@categoria</option>
+            }
+        </select>
+    </td>
+    <td><button @onclick="SaveData">Guardar</button></td>
+}
+
+@code {
+    [Parameter]
+    public Producto Producto { get; set; }
+    [Parameter]
+    public EventCallback<Producto> OnSubmit { get; set; }
+
+    private async Task SaveData()
+    {
+        await OnSubmit.InvokeAsync(Producto);
+    }
+}

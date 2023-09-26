@@ -1,10 +1,11 @@
 ﻿@using CediadDataBase;
-@inject RegistrosService service
+@inject RegistroService service
 @page "/"
 @page "/CajaDiariaRegistros"
 @page "/CajaDiariaRegistros/{SelectedDateParameter}"
 
 <h3>Caja Diaria Registros</h3>
+<button @onclick="()=>AddDays(0)">Hoy</button>
 <button @onclick="()=>AddDays(-1)">Anterior</button>
 <input type="date" @bind="SelectedDate" @oninput="OnDateChanged" />
 <button @onclick="()=>AddDays(1)">Siguiente</button>
@@ -68,7 +69,10 @@
     }
     private async Task AddDays(int days)
     {
-        SelectedDate = SelectedDate.AddDays(days);
+        if(days == 0)
+            SelectedDate = DateTime.Today;
+        else
+            SelectedDate = SelectedDate.AddDays(days);
         await LoadRecords();
     }
     private async Task HandleValidSubmit(Registro registro)

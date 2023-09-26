@@ -1,4 +1,5 @@
 using CediadDataBase;
+using CediadProductosYServicios;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<RegistroContext>(options =>
     options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadRegistrosDb;Integrated Security=True;TrustServerCertificate=true;"));
-builder.Services.AddScoped<RegistrosService>();
+builder.Services.AddScoped<RegistroService>();
+builder.Services.AddDbContext<ProductoContext>(options =>
+    options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadProductosDb;Integrated Security=True;TrustServerCertificate=true;"));
+builder.Services.AddTransient<ProductoService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

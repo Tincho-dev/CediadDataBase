@@ -1,0 +1,77 @@
+﻿@inject ProductoService service
+@page "/ListaProductos"
+
+@if(Productos != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Precio De Compra</th>
+                <th>Categoria</th>
+                <th>Guardar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var producto in Productos)
+            {
+                <tr>
+                    @if(producto == Productos.First())
+                    {
+                        <td><input type="text" @bind="producto.Codigo" @ref="myref" /></td>
+                    }
+                    else
+                    {
+                        <td><input type="text" @bind="producto.Codigo" /></td>
+                    }
+                    <FilaProducto Producto="producto" OnSubmit="HandleValidSubmit" />
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    public List<Producto> Productos { get; set; }
+    private ElementReference myref;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProducts();
+        base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await SetRef();        
+    }
+
+    private async Task LoadProducts()
+    {
+        Productos = await service.GetProductos();
+        Productos.Insert(0, new Producto());
+
+    }
+    async Task SetRef()
+    {
+        await myref.FocusAsync();
+    }
+    private async Task HandleValidSubmit(Producto producto)
+    {
+        // Logic to save the record to the database using the service
+        bool success = await service.AddProducto(producto);
+        if (success)
+        {
+            await LoadProducts(); // Reload records after adding a new one
+                                  //focus en el primer campo de la fila siguiente
+            await SetRef();  
+        }
+        else
+        {
+            // Handle the error case, show an error message, etc.
+        }
+    }
+}

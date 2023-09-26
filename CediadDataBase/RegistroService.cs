@@ -2,11 +2,11 @@
 
 namespace CediadDataBase;
 
-public class RegistrosService
+public class RegistroService
 {
     private readonly RegistroContext _context;
 
-    public RegistrosService(RegistroContext context)
+    public RegistroService(RegistroContext context)
     {
         _context = context;
     }

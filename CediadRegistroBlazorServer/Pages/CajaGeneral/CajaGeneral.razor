@@ -1,5 +1,5 @@
 ﻿@using CediadDataBase;
-@inject RegistrosService service
+@inject RegistroService service
 @page "/CajaGeneral"
 
 <h3>Caja General</h3>
@@ -40,7 +40,7 @@
 
     private async Task LoadRecords()
     {
-        Registros = service.GetRegistros(r => r.MetodoDePago == MetodoDePago.EFECTIVO && r.Destino == Destino.GENERAL) ?? new List<Registro>();
+        Registros = service.GetRegistros(r =>  r.Destino == Destino.GENERAL) ?? new List<Registro>();
         Registros.Insert(0, new Registro());
     }
 
