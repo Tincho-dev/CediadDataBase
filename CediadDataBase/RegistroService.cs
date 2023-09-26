@@ -7,7 +7,6 @@ public interface IRegistroService {
     Task<List<Registro>> GetRegistros();
     List<Registro> GetRegistros(Func<Registro, bool> predicate);
     List<Registro> GetRegistros(DateTime date);
-    Registro? GetRegistro();
 }
 
 public class RegistroService : IRegistroService
@@ -59,12 +58,5 @@ public class RegistroService : IRegistroService
         return _context.Registros
             .Where(r => r.FechaDePago >= inicioDia && r.FechaDePago <= finDia)
             .ToList();
-    }
-
-
-
-    public Registro? GetRegistro()
-    {
-        return _context.Registros.FirstOrDefault();
     }
 }
