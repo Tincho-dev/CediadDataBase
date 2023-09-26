@@ -3,8 +3,17 @@ using CediadDataBase;
 using Microsoft.EntityFrameworkCore;
 
 namespace CediadProductosYServicios;
-
-public class ProductoService
+public interface IProductoService
+{
+    Task<bool> AddProducto(Producto producto);
+    Task<List<Producto>> GetProductos();
+    List<Producto> GetProductos(Func<Producto, bool> predicate);
+    Task<bool> RemoveProducto(int id);
+    Task<bool> RemoveProducto(Producto producto);
+    Task<bool> UpdateProducto(Producto producto);
+    Task<bool> UpdateProducto(int id, Producto producto);
+}
+public class ProductoService : IProductoService
 {
     private readonly ProductoContext _context;
 

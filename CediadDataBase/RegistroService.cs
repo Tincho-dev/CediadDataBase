@@ -2,7 +2,15 @@
 
 namespace CediadDataBase;
 
-public class RegistroService
+public interface IRegistroService {
+    Task<bool> AddRegistro(Registro registro);
+    Task<List<Registro>> GetRegistros();
+    List<Registro> GetRegistros(Func<Registro, bool> predicate);
+    List<Registro> GetRegistros(DateTime date);
+    Registro? GetRegistro();
+}
+
+public class RegistroService : IRegistroService
 {
     private readonly RegistroContext _context;
 
