@@ -1,4 +1,5 @@
 using CediadDataBase;
+using Caja;
 using CediadProductosYServicios;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,9 @@ builder.Services.AddScoped<IRegistroService, RegistroService>();
 builder.Services.AddDbContext<ProductoContext>(options =>
     options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadProductosDb;Integrated Security=True;TrustServerCertificate=true;"));
 builder.Services.AddTransient<IProductoService, ProductoService>();
+builder.Services.AddDbContext<CajaContext>(options =>
+        options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadCajasDb;Integrated Security=True;TrustServerCertificate=true;"));
+builder.Services.AddTransient<ICajaService, CajaService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

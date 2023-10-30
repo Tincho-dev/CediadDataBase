@@ -1,0 +1,55 @@
+﻿@using Caja
+@inject ICajaService service
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            @foreach(var billete in Enum.GetValues(typeof(Billete)))
+            {
+                <th>@billete</th>
+            }
+            <th>Guardar fila</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Caja != null)
+        {
+            <tr>
+                @foreach (var property in typeof(DetalleCaja).GetProperties())
+                {
+                    <td>
+                        <input type="number" value="@property.GetValue(Caja)">
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <button class="btn btn-primary" @onclick="Save">Guardar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public DateTime CurrentDate { get; set; }
+    private DetalleCaja? Caja { get; set; }
+
+    override protected async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await LoadData();
+    }
+
+    async Task LoadData()
+    {
+        Caja = await service.GetDetalleCaja(CurrentDate);
+    }
+
+    async Task Save()
+    {
+        await service.SetDetalleCaja(Caja);
+        await LoadData();
+    }
+}
