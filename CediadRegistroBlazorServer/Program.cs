@@ -10,7 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<RegistroContext>(options =>
     options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadRegistrosDb;Integrated Security=True;TrustServerCertificate=true;"));
-builder.Services.AddScoped<IRegistroService, RegistroService>();
+builder.Services.AddScoped<IRegistroService, RegistroServiceMock>();
 builder.Services.AddDbContext<ProductoContext>(options =>
     options.UseSqlServer("Server=CEDIAD\\SQLEXPRESS02;Database=CediadProductosDb;Integrated Security=True;TrustServerCertificate=true;"));
 builder.Services.AddTransient<IProductoService, ProductoService>();
