@@ -1,35 +1,30 @@
 ﻿@using Caja
 @inject ICajaService service
 
-<table class="table table-striped table-bordered table-hover">
-    <thead>
-        <tr>
-            @foreach(var billete in Enum.GetValues(typeof(Billete)))
-            {
-                <th>@billete</th>
-            }
-            <th>Guardar fila</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Caja != null)
+<div class="grid-container">
+    <div class="grid-item header">Billete</div>
+    <div class="grid-item header">Cantidad</div>
+    <div class="grid-item header">Subtotal </div>
+
+    @if (Caja != null)
+    {
+        @foreach (var billete in Caja.Billetes)
         {
-            <tr>
-                @foreach (var property in typeof(DetalleCaja).GetProperties())
-                {
-                    <td>
-                        <input type="number" value="@property.GetValue(Caja)">
-                    </td>
-                }
-            </tr>
-            <tr>
-                <td colspan="6">
-                    <button class="btn btn-primary" @onclick="Save">Guardar</button>
-                </td>
-            </tr>
+            <div class="grid-item">
+                @billete.Key
+            </div>
+            <div class="grid-item">
+                <input type="number" value="@billete.Value">
+            </div>
+            <div class="grid-item">
+                @(billete.Key * billete.Value)
+            </div>  
         }
-    </tbody>
-</table>
+        <div class="grid-item">
+            <button class="btn btn-primary" @onclick="Save">Guardar</button>
+        </div>
+    }
+</div>
 
 @code {
     [Parameter]

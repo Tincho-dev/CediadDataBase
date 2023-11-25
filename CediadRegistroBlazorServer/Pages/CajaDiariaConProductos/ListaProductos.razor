@@ -43,10 +43,12 @@
         await LoadProducts();
         base.OnInitializedAsync();
     }
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await SetRef();        
+        if (!firstRender)
+        {
+            await SetRef();
+        }
     }
 
     private async Task LoadProducts()
